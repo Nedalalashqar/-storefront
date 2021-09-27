@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, Row, Col } from 'react-bootstrap'
+import { Card, Row, Col ,Button } from 'react-bootstrap'
 import './style.css'
+import { addItem } from "../store/cart"
+
 
 
 
@@ -36,7 +38,9 @@ const Status = props => {
                                         <Card.Text>
                                             In Stock : {data.inStock}
                                         </Card.Text>
-
+                                        <Button variant="warning" color="primary" onClick={() => props.addItem(data.name)}> Add to Cart</Button>
+                                        &nbsp;
+                                        <Button variant="warning" color="primary" >View Details</Button>
 
 
 
@@ -57,11 +61,8 @@ const Status = props => {
 const mapStateToProps = state => ({
     categoryState: state
 });
-
-
-
-export default connect(mapStateToProps)(Status);
-
+const mapDispatchToProps = { addItem }
+export default connect(mapStateToProps,mapDispatchToProps)(Status);
 
 
 

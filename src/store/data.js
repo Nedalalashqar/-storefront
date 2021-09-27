@@ -14,7 +14,7 @@ const initialState = {
         { name: 'Iphone', category: 'electronics', price: 600.00, inStock: 9,
         image:'https://mob4g.com/wp-content/uploads/2020/01/iPhone-11-600x600.jpeg' },
 
-        { name: 'Samsung‏ UHD 4K Smart', category: 'electronics', price: 999.00, inStock: 7,
+        { name: 'TV‏ Smart', category: 'electronics', price: 999.00, inStock: 7,
           image:'https://images.samsung.com/is/image/samsung/p6pim/levant/ua43au7000uxtw/gallery/levant-uhd-au7000-ua43au7000uxtw-409719074?$720_576_PNG$' },
 
           { name: 'Radio', category: 'electronics', price: 150.00, inStock: 4,
