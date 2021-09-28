@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col ,Button } from 'react-bootstrap'
 import './style.css'
-import { addItem } from "../store/cart"
+import * as actions from "../store/actions";
 
 
 
@@ -58,10 +58,21 @@ const Status = props => {
 }
 
 
+
+
 const mapStateToProps = state => ({
     categoryState: state
 });
-const mapDispatchToProps = { addItem }
+
+
+
+const mapDispatchToProps =  (dispatch, getState) => ({
+    addItem :(addItemFromCard)=>dispatch(actions.addItem(addItemFromCard)),
+  })
+
+
+
+
 export default connect(mapStateToProps,mapDispatchToProps)(Status);
 
 
