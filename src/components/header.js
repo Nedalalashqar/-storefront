@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,19 +11,23 @@ import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@restart/ui/esm/Button';
 import { removeItem } from '../store/cart';
+import * as actions from "../store/actions";
+
 
 
 
 const Status = props => {
 
 
-  console.log('mapStateToProps---', props.categoryState);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  console.log('props.categoryState.card',  props.categoryState.card.items.quantity);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  useEffect(async () => {
+    await props.get()
+  }, [''])
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -49,7 +53,7 @@ const Status = props => {
 
 
             (<Nav.Link variant="contained" color="secondary"
-              onClick={() => props.sendActiveCat(data.name)}
+              onClick={() => props.changeActiveCategory(data.name)}
               id={data.name} key={data.name}> {data.displayName} </Nav.Link >))}
           </Nav>
 
@@ -68,7 +72,7 @@ const Status = props => {
             onClose={handleClose}
           >
             {props.categoryState.card.items.map(data => {
-              return <MenuItem style={{ width: 200 }} onClick={handleClose} id={data.name} key={data.name}>{data.name} quantity :  {data.quantity} <Button variant="danger" onClick={() => props.removeItem(data.name)} style={{ backgroundColor: "red", borderRadius: "100%", color: "white", marginLeft: "12px" }} > X </Button>
+              return <MenuItem style={{ width: 200 }} onClick={handleClose} id={data.name} key={data.name}>{data.name} quantity :  {data.quantity} <Button variant="danger" onClick={() => props.remove(data.name)} style={{ backgroundColor: "red", borderRadius: "100%", color: "white", marginLeft: "12px" }} > X </Button>
 
 
               </MenuItem >
@@ -96,8 +100,13 @@ const mapStateToProps = state => ({
 
 
 
-const mapDispatchToProps = { sendActiveCat  ,removeItem}
+const mapDispatchToProps = (dispatch, getState) => ({
+  get: (activeCategory) => dispatch(actions.getRemoteData(activeCategory)),
+  remove: (removeFromCard) => dispatch(actions.removeItem(removeFromCard)),
+  changeActiveCategory: (activeCategory) => dispatch(actions.changeActiveCategory(activeCategory)),
+})
 export default connect(mapStateToProps, mapDispatchToProps)(Status);
+
 
 
 
